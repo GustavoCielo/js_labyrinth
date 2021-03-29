@@ -1,0 +1,47 @@
+div {
+  width: 20px;
+  height: 20px;
+}
+
+div#lab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+div.col {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+div.space,
+div.start {
+  background: lightgrey;
+}
+
+div#mainChar {
+  background: pink;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+div.finish {
+  background: red;
+}
+
+div.wall {
+  background: black;
+}
+
+h1 {
+  margin-left: 160px;
+}
+
+button {
+  margin: 380px 0 0 110px;
+  width: 200px;
+  background: lightgrey;
+  border-radius: 5%;
+}
