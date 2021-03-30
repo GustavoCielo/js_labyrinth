@@ -1,6 +1,7 @@
-let row = 180;
+let row = 9;
 let col = 0;
-
+const labSelector = document.getElementById("lab");
+let char = document.getElementById("mainChar");
 const map = [
   "#####################",
   "#   #     #     # # #",
@@ -19,7 +20,6 @@ const map = [
   "#####################",
 ];
 
-const labSelector = document.getElementById("lab");
 const generateLab = () => {
   for (let i = 0; i < map.length; i++) {
     let divCol = document.createElement("div");
@@ -54,7 +54,6 @@ generateLab();
 
 document.addEventListener("keyup", (event) => {
   let keyName = event.key;
-  let char = document.getElementById("mainChar");
   if (keyName === "ArrowRight") {
     moveRight();
   }
@@ -62,24 +61,18 @@ document.addEventListener("keyup", (event) => {
     moveLeft();
   }
   if (keyName === "ArrowUp") {
-    let moveUp =
-      char.parentElement.parentNode.previousSibling.firstChild.nextSibling;
-    if (moveUp.className === "space") {
-      moveUp.appendChild(char);
-    }
+    moveUp();
   }
   if (keyName === "ArrowDown") {
-    let moveDown =
-      char.parentElement.parentNode.nextSibling.firstChild.nextSibling;
-    if (moveDown.className === "space") {
-      moveDown.appendChild(char);
-    }
+    moveDown();
   }
 });
 
-document.getElementById("startOver").addEventListener("click", (event) => {
+document.getElementById("startOver").addEventListener("click", () => {
   labSelector.innerText = "";
   generateLab();
+  row = 9;
+  col = 0;
 });
 
 const moveRight = () => {
@@ -87,6 +80,12 @@ const moveRight = () => {
   let moveRight = char.parentElement.nextSibling;
   if (moveRight.className === "space" || moveRight.className === "finish") {
     moveRight.appendChild(char);
+    col += 1;
+  }
+  if (moveRight.className === "finish") {
+    let h1 = document.createElement("h1");
+    h1.innerText = `Vitória`;
+    labSelector.appendChild(h1);
   }
 };
 
@@ -95,9 +94,28 @@ const moveLeft = () => {
   let moveLeft = char.parentElement.previousSibling;
   if (moveLeft.className === "space" || moveLeft.className === "start") {
     moveLeft.appendChild(char);
+    col -= 1;
   }
 };
 
-//21 por 15
-//parentElement
-//previousSibling
+const moveUp = () => {
+  let char = document.getElementById("mainChar");
+  let moveUp = char.parentElement.parentElement.previousSibling.children.item(
+    col
+  );
+  if (moveUp.className === "space") {
+    moveUp.appendChild(char);
+    row -= 1;
+  }
+};
+
+const moveDown = () => {
+  let char = document.getElementById("mainChar");
+  let moveDown = char.parentElement.parentElement.nextSibling.children.item(
+    col
+  );
+  if (moveDown.className === "space") {
+    moveDown.appendChild(char);
+    row += 1;
+  }
+};
